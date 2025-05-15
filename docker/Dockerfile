@@ -92,6 +92,9 @@ RUN bash -c "source /opt/ros/$ROS_DISTRO/setup.bash && cd /opt/open_mower_ros/sr
 
 RUN echo "export OM_SOFTWARE_VERSION=$(git describe --tags || git describe --always || echo "v0.0.0")" > version_info.env
 
+# needed for converting map bag_to_gpx.py
+RUN apt-get update && apt-get install pip && pip install gpxpy && pip install utm && pip install nano
+
 COPY ./docker/openmower_entrypoint.sh /openmower_entrypoint.sh
 RUN chmod +x /openmower_entrypoint.sh
 
